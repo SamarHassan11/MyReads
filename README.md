@@ -2,6 +2,7 @@
 
 This project is a part of Udacity's React Fundamentals course.
 
+
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
