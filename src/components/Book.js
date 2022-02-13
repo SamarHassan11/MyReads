@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Book = ({ book, updateBookShelf, searchResults }) => {
+const Book = ({ book, updateBookShelf, isSearchPage }) => {
     const { title, shelf, authors, imageLinks } = book
-    const imageLink = searchResults ? imageLinks.smallThumbnail : imageLinks.thumbnail
+    const imageLink = isSearchPage ? imageLinks && imageLinks.smallThumbnail : imageLinks && imageLinks.thumbnail
 
     const updateShelf = e => updateBookShelf(book, e.target.value)
 
@@ -23,7 +23,7 @@ const Book = ({ book, updateBookShelf, searchResults }) => {
             </div>
             <div className="book-title">{title}</div>
             {
-                authors.map(author => (
+                authors && authors.map(author => (
                     <div key={author} className="book-authors">{author}</div>
                 ))
             }
@@ -34,11 +34,11 @@ const Book = ({ book, updateBookShelf, searchResults }) => {
 Book.propTypes = {
     book: PropTypes.object.isRequired,
     updateBookShelf: PropTypes.func.isRequired,
-    searchResults: PropTypes.bool,
+    isSearchPage: PropTypes.bool,
 }
 
 Book.default = {
-    searchResults: false,
+    isSearchPage: false,
 }
 
 export default Book

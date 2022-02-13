@@ -38,7 +38,9 @@ class BooksApp extends React.Component {
                 {
                     this.state.showSearchPage ?
                         <SearchPage
+                            books={this.state.books}
                             hideSearchPage={this.hideSearchPage}
+                            updateBookShelf={this.updateBookShelf}
                         />
                         :
                         <BooksPage
