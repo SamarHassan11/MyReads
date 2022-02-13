@@ -1,7 +1,8 @@
 import React from 'react'
-import * as BooksAPI from '../BooksAPI'
 import PropTypes from 'prop-types'
+import { debounce } from 'lodash'
 
+import * as BooksAPI from '../BooksAPI'
 import { Book } from '../components'
 
 class SearchPage extends React.PureComponent {
@@ -18,8 +19,7 @@ class SearchPage extends React.PureComponent {
         this.setState({ searchedBooks: books })
     }
 
-    searchBooks = e => {
-        const text = e.target.value
+    searchAllBooks = text => {
         if (text) {
             BooksAPI.search(text).then(response => {
                 if (response instanceof Array) {
@@ -31,7 +31,11 @@ class SearchPage extends React.PureComponent {
         this.setState({ searchedBooks: [] })
     }
 
-    updateSearchedBookShelf = (book, shelf) => {
+    search = debounce(this.searchAllBooks, 1000)
+
+    handleSearchInput = ({ target: { value } }) => this.search(value)
+
+    updateBookShelf = (book, shelf) => {
         this.setState(prevState => ({
             searchBooks: prevState.searchedBooks.map(searchedBook => {
                 if (book.id === searchedBook.id) {
@@ -40,10 +44,6 @@ class SearchPage extends React.PureComponent {
                 return searchedBook
             })
         }))
-    }
-
-    updateBookShelf = (book, shelf) => {
-        this.updateSearchedBookShelf(book, shelf)
         this.props.updateBookShelf(book, shelf)
     }
 
@@ -54,7 +54,11 @@ class SearchPage extends React.PureComponent {
                 <div className="search-books-bar">
                     <button className="close-search" onClick={hideSearchPage}>Close</button>
                     <div className="search-books-input-wrapper">
-                        <input type="text" placeholder="Search by title or author" onChange={this.searchBooks} />
+                        <input
+                            type="text"
+                            placeholder="Search by title or author"
+                            onChange={this.handleSearchInput}
+                        />
                     </div>
                 </div>
                 <div className="search-books-results">

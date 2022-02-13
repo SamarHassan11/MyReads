@@ -22,7 +22,9 @@ class BooksApp extends React.Component {
 
     getAllBooks = () => BooksAPI.getAll().then(response => this.setState({ books: response }))
 
-    updateBookShelf = (book, shelf) => BooksAPI.update(book, shelf).then(this.getAllBooks())
+    updateBookShelf = (book, shelf) => BooksAPI.update(book, shelf).then(() => {
+        this.getAllBooks()
+    })
 
     showSearchPage = () => {
         this.setState({ showSearchPage: true });
