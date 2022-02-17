@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import { BookShelves } from '../components'
 
 
-const BooksPage = ({ books, updateBookShelf, showSearchPage }) => {
+const BooksPage = ({ books, updateBookShelf }) => {
     return (
         <div className="list-books">
             <div className="list-books-title">
@@ -14,7 +15,9 @@ const BooksPage = ({ books, updateBookShelf, showSearchPage }) => {
                 books.length ? <BookShelves books={books} updateBookShelf={updateBookShelf} /> : null
             }
             <div className="open-search">
-                <button onClick={showSearchPage}>Add a book</button>
+                <Link to="/add-book">
+                    <button>Add a book</button>
+                </Link>
             </div>
         </div>
     )
@@ -23,7 +26,6 @@ const BooksPage = ({ books, updateBookShelf, showSearchPage }) => {
 BooksPage.propTypes = {
     books: PropTypes.array.isRequired,
     updateBookShelf: PropTypes.func.isRequired,
-    showSearchPage: PropTypes.func.isRequired,
 }
 
 export default BooksPage

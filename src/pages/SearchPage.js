@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { debounce } from 'lodash'
 
 import * as BooksAPI from '../BooksAPI'
@@ -48,11 +49,12 @@ class SearchPage extends React.PureComponent {
     }
 
     render() {
-        const { hideSearchPage } = this.props;
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <button className="close-search" onClick={hideSearchPage}>Close</button>
+                    <Link to="/">
+                        <button className="close-search">Close</button>
+                    </Link>
                     <div className="search-books-input-wrapper">
                         <input
                             type="text"
@@ -84,7 +86,6 @@ class SearchPage extends React.PureComponent {
 SearchPage.propTypes = {
     books: PropTypes.array.isRequired,
     updateBookShelf: PropTypes.func.isRequired,
-    hideSearchPage: PropTypes.func.isRequired,
 }
 
 export default SearchPage
