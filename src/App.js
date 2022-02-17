@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import { SearchPage, BooksPage } from './pages'
+import { SearchPage, BooksPage, NotFound } from './pages'
 
 
 class BooksApp extends React.Component {
@@ -32,6 +32,7 @@ class BooksApp extends React.Component {
         return (
             <div className="app">
                 <Routes>
+                    <Route path="*" element={<NotFound />} />
                     <Route exact path="/add-book" element={
                         <SearchPage
                             books={this.state.books}
